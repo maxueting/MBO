@@ -5,7 +5,7 @@ import requests
 
 def getSession(userid, hj):
 
-    url = hj + "/cloud/base-server/login/" + userid + "/mbo_13"  # 这里只有url，字符串格式
+    url = hj + "/cloud/base-server/logback/" + userid + "/mbo_13"  # 这里只有url，字符串格式
     session = requests.session()
     response = session.get(url)
     return session
