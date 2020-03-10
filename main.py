@@ -1,16 +1,16 @@
 # -*- coding: UTF-8 -*-
 
-import time
 import logging.handlers
 import mbfq
 import mbzd1
 import mbsh
 import fqkp
 import zp1
-import kp
+import kp1
 import Getlogfilename
+import os
 
-LOG_FILE = Getlogfilename.getlogfileName()
+LOG_FILE = Getlogfilename.getlogfileName()  # 获取log文件名
 handler = logging.handlers.RotatingFileHandler(LOG_FILE, maxBytes=1024 * 1024, backupCount=5)  # 实例化handler
 fmt = '%(asctime)s - %(message)s'
 formatter = logging.Formatter(fmt)  # 实例化formatter
@@ -23,7 +23,8 @@ logger.setLevel(logging.DEBUG)
 # 读取工号文件
 try:
     # 填写读取工号文件地址，执行环境，当前周期
-    f = open('C:/Users/wb.maxueting/Desktop/userID.txt', 'r')
+    pwd = os.getcwd() + '\\' + 'userID.txt'
+    f = open(pwd, 'r')
     hj = "http://mbo.test.netease.com"
     period = "2020Q1"
     str = f.read()
@@ -62,11 +63,11 @@ try:
             if zzp.rfind("200") == -1:
                 continue
 
-            # kkp = kp.kp(period, userid, hj)
-            # print(kkp)
-            # logger.info(kkp)
-            # if kkp.rfind("200") == -1:
-            #     continue
+            kkp = kp1.kp(period, userid, hj)
+            print(kkp)
+            logger.info(kkp)
+            if kkp.rfind("200") == -1:
+                continue
 
 
         except Exception as e:

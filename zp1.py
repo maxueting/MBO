@@ -17,15 +17,26 @@ def zp(period, userid, hj):
 
         for j in i["blockItemList"]:
             if i["blockItemList"] != []:
-                blockList1[n]["blockItemList"].append({
-                    "id": j["id"],
-                    "assessSelf": {
-                        "id": 4,
-                        "assessContent": "自评",
-                        "type": 2,
-                        "weight": j["weight"]
-                    }
-                })
+                if i["type"] == 1:
+                    blockList1[n]["blockItemList"].append({
+                        "id": j["id"],
+                        "assessSelf": {
+                            "id": 101,
+                            "assessContent": "自评",
+                            "type": 1,
+                            "weight": j["weight"]
+                        }
+                    })
+                else:
+                    blockList1[n]["blockItemList"].append({
+                        "id": j["id"],
+                        "assessSelf": {
+                            "id": 4,
+                            "assessContent": "自评",
+                            "type": 2,
+                            "weight": j["weight"]
+                        }
+                    })
         n = n + 1
     # print(blockList1)
     data = json.dumps({
@@ -44,4 +55,4 @@ def zp(period, userid, hj):
     res1 = session1.post(url, data=data, headers=headers)
     return userid + " 绩效自评： " + res1.text
 
-# zp("2020Q1", "H17786", "http://mbo.test.netease.com")
+#zp("2020Q4", "H19584", "http://mbo.test.netease.com")
