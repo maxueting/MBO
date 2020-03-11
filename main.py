@@ -9,6 +9,8 @@ import zp1
 import kp1
 import Getlogfilename
 import os
+import jgsh
+import time
 
 LOG_FILE = Getlogfilename.getlogfileName()  # 获取log文件名
 handler = logging.handlers.RotatingFileHandler(LOG_FILE, maxBytes=1024 * 1024, backupCount=5)  # 实例化handler
@@ -26,9 +28,11 @@ try:
     pwd = os.getcwd() + '\\' + 'userID.txt'
     f = open(pwd, 'r')
     hj = "http://mbo.test.netease.com"
-    period = "2020Q1"
+    period = "2020Q2"
     str = f.read()
     str_list = str.split()
+
+
     for userid in str_list:
         logger.info("----------------------------------------"+userid+"----------------------------------------")
         print("----------------------------------------"+userid+"----------------------------------------")
@@ -69,17 +73,29 @@ try:
             if kkp.rfind("200") == -1:
                 continue
 
-
         except Exception as e:
             print(userid+"流程异常")
             logger.info(e)
             logger.info(userid+" 流程异常，跳过")
             pass
         continue
+
+    time.sleep(1)
+
+    for userid in str_list:
+        logger.info("--------------------------------------员工"+userid+"所在的部门开始审核--------------------------------------")
+        print("--------------------------------------员工"+userid+"所在的部门开始审核--------------------------------------")
+
+        for i in jgsh.jgsh(period, hj, userid):
+            logger.info(i)
+            print(i)
+
+
+
+
+
 # 关闭文件
 finally:
     if f:
         f.close()
-
-
 
