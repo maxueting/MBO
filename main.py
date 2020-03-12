@@ -11,6 +11,7 @@ import Getlogfilename
 import os
 import jgsh
 import time
+import jxmt
 
 LOG_FILE = Getlogfilename.getlogfileName()  # 获取log文件名
 handler = logging.handlers.RotatingFileHandler(LOG_FILE, maxBytes=1024 * 1024, backupCount=5)  # 实例化handler
@@ -28,7 +29,9 @@ try:
     pwd = os.getcwd() + '\\' + 'userID.txt'
     f = open(pwd, 'r')
     hj = "http://mbo.test.netease.com"
-    period = "2020Q2"
+    year = "2020"
+    zhouqi = "Q4"
+    period = year + zhouqi
     str = f.read()
     str_list = str.split()
 
@@ -83,12 +86,31 @@ try:
     time.sleep(1)
 
     for userid in str_list:
-        logger.info("--------------------------------------员工"+userid+"所在的部门开始审核--------------------------------------")
-        print("--------------------------------------员工"+userid+"所在的部门开始审核--------------------------------------")
+        logger.info("------------------------------" + userid + "所在的部门" + period + "开始审核------------------------------")
+        print("------------------------------" + userid + "所在的部门" + period + "开始审核------------------------------")
 
         for i in jgsh.jgsh(period, hj, userid):
             logger.info(i)
             print(i)
+            if i.rfind("200") == -1:
+                continue
+        if (zhouqi == "Q4") | (zhouqi == "SH"):
+            period2 = year + "A"
+            logger.info("--------------------------------------" + period2 + "周期开始审核--------------------------------------")
+            print("--------------------------------------" + period2 + "周期开始审核--------------------------------------")
+            for j in jgsh.jgsh(period2, hj, userid):
+                logger.info(j)
+                print(j)
+                if i.rfind("200") == -1:
+                    continue
+        logger.info("--------------------------------------开始沟通--------------------------------------")
+        print("--------------------------------------开始沟通--------------------------------------")
+        mmt = jxmt.jxmt(userid, period, hj)
+        print(mmt)
+        logger.info(mmt)
+        if i.rfind("200") == -1:
+            continue
+
 
 
 

@@ -16,6 +16,8 @@ def getRyjd(period, tabid, hj, userid):
     jres = json.loads(res2)
     if jres["data"]["totalResults"] == 0:
         userid1 = 1
+    elif jres["data"]["result"]["empList"][0]["opUserList"] == None:
+        userid1 = 1
     else:
         userid1 = jres["data"]["result"]["empList"][0]["opUserList"][0]["id"]
     return userid1

@@ -8,8 +8,8 @@ import json
 def jgsh(period, hj,  userid):
 
     str1 = []
-    str2 = ["该员工所在部门已审核完成或未进入审核阶段"]
-    for n in range(10):
+    str2 = [userid+"结果审核：该员工所在部门已审核完成或未进入审核阶段"]
+    for n in range(100):
         # 登录审核人账号获取uid,
         userid1 = getRyjd.getRyjd(period, 45, hj, userid)
         if userid1 == 1:
